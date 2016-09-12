@@ -1,11 +1,13 @@
 // ==UserScript==
 // @name         HF - Trustscan UID Thread Search
-// @version      1.2
+// @version      1.3
 // @description  Adds an automatic UID thread search to the trustscan page on HF
 // @author       Yani
 // @match        http://*.hackforums.net/trustscan.php*
 // @match        https://*.hackforums.net/trustscan.php*
 // @require      https://code.jquery.com/jquery-3.1.0.slim.min.js
+// @downloadURL  https://github.com/Yanikore/hf-trustscan-uid-search.user.js/raw/master/hf-trustscan-uid-search.user.js
+// @updateURL 	 https://github.com/Yanikore/hf-trustscan-uid-search.user.js/raw/master/hf-trustscan-uid-search.user.js
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
 

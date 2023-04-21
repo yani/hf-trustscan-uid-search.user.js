@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         HF - Trustscan UID Thread Search
-// @version      1.3
+// @version      1.4
 // @description  Adds an automatic UID thread search to the trustscan page on HF
 // @author       Yani
 // @match        http://*.hackforums.net/trustscan.php*
 // @match        https://*.hackforums.net/trustscan.php*
 // @require      https://code.jquery.com/jquery-3.1.0.slim.min.js
-// @downloadURL  https://github.com/Yanikore/hf-trustscan-uid-search.user.js/raw/master/hf-trustscan-uid-search.user.js
-// @updateURL 	 https://github.com/Yanikore/hf-trustscan-uid-search.user.js/raw/master/hf-trustscan-uid-search.user.js
+// @downloadURL  https://github.com/yani/hf-trustscan-uid-search.user.js/raw/master/hf-trustscan-uid-search.user.js
+// @updateURL 	 https://github.com/yani/hf-trustscan-uid-search.user.js/raw/master/hf-trustscan-uid-search.user.js
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
@@ -29,9 +29,9 @@ function checkDone() {
     totalLoadCurrent++;
 
     if (loadingText && (totalLoadCurrent >= totalLoad)){
-        $("table:eq(2)>tbody>tr:eq(1)>td").html("Nothing found");
+        $("table:eq(3)>tbody>tr:eq(1)>td").html("Nothing found");
     } else if(loadingText) {
-        $("table:eq(2)>tbody>tr:eq(1)>td").html($("table:eq(2)>tbody>tr:eq(1)>td").html() + ".");
+        $("table:eq(3)>tbody>tr:eq(1)>td").html($("table:eq(3)>tbody>tr:eq(1)>td").html() + ".");
     }
 }
 
@@ -53,15 +53,16 @@ function popThreads(html) {
                 threads.push(threadID);
                 if (loadingText) {
                     loadingText = false;
-                    $("table:eq(2)").html(
-                        '<thead><tr><td class="tcat" colspan="2" width="76%"><span class="smalltext"><strong>Thread / Author</strong></span></td>' +
-                        '<td class="tcat" align="center" width="7%"><span class="smalltext"><strong>Replies</strong></span></td>' +
+                    $("table:eq(3)").html(
+                        '<thead><tr><td class="tcat" colspan="2" width="69%"><span class="smalltext"><strong>Thread / Author</strong></span></td>' +
+                        '<td class="tcat" align="center" width="6%"><span class="smalltext"><strong>Replies</strong></span></td>' +
+                        '<td class="tcat" align="center" width="9%"><span class="smalltext"><strong>Views</strong></span></td>' +
                         '<td class="tcat" width="80"><span class="smalltext"><strong>Last Reply</strong></span></td></thead><tbody></tbody>'
                     );
 
-                    $("table:eq(2)>tbody").html(tr);
+                    $("table:eq(3)>tbody").html(tr);
                 } else {
-                    $("table:eq(2)>tbody").append(tr);
+                    $("table:eq(3)>tbody").append(tr);
                 }
             }
         }
@@ -69,9 +70,9 @@ function popThreads(html) {
 }
 
 if (uid !== null && uid != 'undefined' && uid > 1) {
-    $("table:eq(2)>tbody>tr:eq(0)>td").html("UID Search");
-    $("table:eq(2)>tbody>tr:eq(1)>td").html("Loading...");
-    
+    $("table:eq(3)>tbody>tr:eq(0)>td").html("UID Search");
+    $("table:eq(3)>tbody>tr:eq(1)>td").html("Loading...");
+
     setTimeout(function () {
         GM_xmlhttpRequest({
             method: "POST",
@@ -95,7 +96,7 @@ if (uid !== null && uid != 'undefined' && uid > 1) {
             ontimeout: function () { checkDone(); }
         });
     }, delay);
-    
+
     for (var page = 1; page < (pagesToScan + 1); page++) {
         delay += 800;
         setTimeout(function () {
@@ -117,7 +118,7 @@ if (uid !== null && uid != 'undefined' && uid > 1) {
                 ontimeout: function () { checkDone(); }
             });
         }, delay);
-        
+
         delay += 800;
         setTimeout(function () {
             GM_xmlhttpRequest({
